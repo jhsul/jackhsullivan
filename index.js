@@ -1,6 +1,10 @@
 const BLOCK_SIZE = 0.5;
-const CHAIKIN_SUBDIVISIONS = 4;
-const DURATION_SCALE = 100;
+const CHAIKIN_SUBDIVISIONS = 5;
+const DURATION_SCALE = 500;
+
+const githubUrl = "https://github.com/jhsul";
+
+let elements = [];
 
 const chaikin = (start, midpoint, dest) => {
   const points = _chaikin([start, midpoint, dest], CHAIKIN_SUBDIVISIONS, dest);
@@ -76,13 +80,14 @@ const makePiece = ({ type, side, x, y, rotation }) => {
       property: "position",
       to: nextPoint,
       from: point,
-      dur: 50 * dist,
+      dur: DURATION_SCALE * dist,
       startEvents: idx === 0 ? null : `animationcomplete__${idx - 1}`,
       easing: "linear",
       autoplay: idx === 0,
     });
   });
 
+  elements.push(entity);
   scene.appendChild(entity);
 };
 
@@ -92,22 +97,6 @@ const tileToWorldCoords = ({ x, y }) => {
     y: BLOCK_SIZE * 0.5,
     z: BLOCK_SIZE * (-y - 2.5),
   };
-};
-
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-const main = async () => {
-  const pieces = [...board];
-  shuffle(pieces);
-  for (let i = 0; i < pieces.length; i++) {
-    const piece = pieces[i];
-    makePiece({ ...piece, side: i % 2 === 0 ? "right" : "left" });
-    await sleep(1000);
-  }
-
-  //makePiece({ type: "I", isRight: true, dest: { x: 3, y: 0 } });
-  //makePiece({ type: "Z", isRight: false, dest: { x: 0, y: 0 } });
-  //makePiece({ type: "Z", side: "left" });
 };
 
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
@@ -129,4 +118,31 @@ const shuffle = (array) => {
   }
 
   return array;
+};
+
+const setGithubLink = () => {
+  const element = document.getElementById("github");
+  //console.log(element);
+  element.addEventListener("click", () => {
+    window.open(githubUrl, "_blank");
+  });
+};
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+const main = async () => {
+  const pieces = [...board];
+  shuffle(pieces);
+  for (let i = 0; i < pieces.length; i++) {
+    const piece = pieces[i];
+    makePiece({ ...piece, side: i % 2 === 0 ? "right" : "left" });
+    await sleep(2000);
+  }
+
+  await sleep(5000);
+  elements.forEach((e) => {
+    e.parentNode.removeChild(e);
+  });
+  elements = [];
+  main();
 };

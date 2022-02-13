@@ -13,20 +13,29 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-
     <script src="pieces.js"></script>
     <script src="vectors.js"></script>
     <script src="board.js"></script>
     <script src="index.js"></script>
   </head>
 
-  <body onload="main();">
-    <a-scene>
+  <body onload="setGithubLink();main();">
+    <a-scene cursor="rayOrigin: mouse">
+      <a-entity environment="preset:japan"></a-entity>
       <a-entity id="rig" position="4 2 1" rotation="0 45 0">
         <a-entity id="camera" camera look-controls wasd-controls></a-entity>
       </a-entity>
-      <a-entity text="value: Hello World;" position="0 2 0"></a-entity>
+      <a-entity
+        text="color: black;value: Jack Sullivan;align: center; width: 15;"
+        position="-3 3 -6"
+        rotation="0 45 0"
+      ></a-entity>
+      <a-entity
+        id="github"
+        text="color: grey ;value: GitHub;align: center; width: 12"
+        position="-3 2 -6"
+        rotation="0 45 0"
+      ></a-entity>
 
       <a-plane
         position="0 0 -3"
