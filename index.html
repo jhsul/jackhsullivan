@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jack Sullivan</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- SEO bullshit -->
+    <meta charset="UTF-8" />
+    <meta name="description" content="Jack Sullivan homepage" />
+    <meta name="author" content="Jack Sullivan" />
+
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
+    <script src="pieces.js"></script>
+    <script src="vectors.js"></script>
+    <script src="board.js"></script>
+    <script src="index.js"></script>
+  </head>
+
+  <body onload="main();">
+    <a-scene>
+      <a-entity id="rig" position="4 2 1" rotation="0 45 0">
+        <a-entity id="camera" camera look-controls wasd-controls></a-entity>
+      </a-entity>
+      <a-entity text="value: Hello World;" position="0 2 0"></a-entity>
+
+      <a-plane
+        position="0 0 -3"
+        rotation="-90 0 0"
+        width="4"
+        height="4"
+        color="grey"
+      ></a-plane>
+      <a-sky color="#EAEAEA"></a-sky>
+    </a-scene>
+  </body>
+</html>
